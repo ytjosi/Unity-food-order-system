@@ -28,11 +28,24 @@
 
    ./pocketbase serve
    ```
-   
+   #### pocketbase admin credentials
+
+   ``` cred
+    email: admin@admin.com
+    password: adminadmin   
+   ```
+
    #### Start the local vite server
    ```
   npm run dev
   ```
+  #### Admin role user cred
+  ```cred
+  email: josi@josi.com
+  password: josijosi
+  ```
+  #### you can create a normal user account from the frontend `/signup` page
+
   ### Group members
   Yosef tesfaye uu81139R
 
