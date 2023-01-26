@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*:focus{
+    outline: none;
+}
+
+@layer components {
+    .card {
+        @apply px-4 py-2 bg-indigo-600 w-full
+    }
+    .button{
+        @apply px-4 py-2 text-white rounded shadow-sm font-medium bg-indigo-600 focus:ring-1 focus:ring-blue-500
+    }
+    .input{
+        @apply px-4 py-2 rounded text-base shadow-sm font-medium bg-opacity-80 bg-gray-100 focus:bg-white border border-gray-300
+    }
+}
+
+@layer base{
+    body{
+        @apply text-base
+    }
+}
+
+.text-cut-3 {
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    max-width: 100%;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+.res-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(264px, 1fr));
+    margin: 0 auto;
+}
