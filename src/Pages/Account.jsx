@@ -98,7 +98,7 @@ const Account = () => {
                             <Field className="input" name="email" type="text" placeholder="example@example.com" />
                             <ErrorMessage component="p" className="text-sm text-red-500" name="email" />
                         </div>
-                        <button type="submit" className="button text-base my-5">{!isLoading ? "Signup" : "Wait..."}</button>
+                        <button type="submit" className="button text-base my-5">{!isLoading ? "Update" : "Wait..."}</button>
                     </Form>
                 </Formik>
             </div>
