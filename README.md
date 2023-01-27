@@ -1,4 +1,4 @@
-# Library/books management system
+# Food management system
 
 ## features/functionalities
 #### User auth(Signup, Signin)
