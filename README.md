@@ -2,8 +2,8 @@
 
 ## features/functionalities
 #### User auth(Signup, Signin)
-#### Admins can Create, Update, Delete Books
-#### All users can view a list of all books
+#### Admins can Create, Update, Delete foods
+#### All users can view a list of all foods
 #### All users can update, delete there accounts
 
 ## Try it out
@@ -47,11 +47,17 @@
   #### you can create a normal user account from the frontend `/signup` page
 
   ### Group members
+  Aiysha mahamud uu75234R
+
+  Abdulhamid jelalu uu83034R
+  
+  Andenet ashenafi uu80280R
+  
+  Natnael selomon uu81000R
+  
   Yosef tesfaye uu81139R
 
   Nphtalem Balcha uu80784R
-
-  Natnael Selomon uu81000R
 
 
 
