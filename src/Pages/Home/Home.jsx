@@ -1,18 +1,29 @@
-import BookContext from "@/context/BooksContext";
 import { pb } from "@/utils/Pocket";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  const { role } = pb.authStore.model
-  const { search, setSearch, addToCart } = useContext(BookContext)
-  const [homeBooks, sethomeBooks] = useState([])
+  const role = pb.authStore.model.role
+  const id = pb.authStore.model.id
+  const [homeFoods, sethomeFoods] = useState([])
+
+  const handleAddToCart = async ({ foodId, userId }) => {
+    try {
+      await pb.collection('cart').create({
+        "user": userId,
+        "food": foodId
+      });
+      toast.success(`Successfully added to cart`, { className: "text-base font-medium" })
+    } catch (error) {
+      toast.error(error?.message, { className: "text-base font-medium" })
+    }
+  }
 
   const handleDelete = async (id) => {
     try {
-      await pb.collection('books').delete(id);
-      toast.success(`Successfully deleted the book`, { className: "text-base font-medium" })
+      await pb.collection('foods').delete(id);
+      toast.success(`Successfully deleted the food`, { className: "text-base font-medium" })
     } catch (error) {
       toast.error(error?.message, { className: "text-base font-medium" })
     }
@@ -21,45 +32,54 @@ const Home = () => {
   useEffect(() => {
     const Home = async () => {
       try {
-        const resultList = await pb.collection('books').getList(1, 50);
-        sethomeBooks(resultList)
+        const resultList = await pb.collection('foods').getList(1, 50);
+        sethomeFoods(resultList)
       } catch (error) {
         toast.error(error?.message, { className: "text-base font-medium" })
 
       }
     }
     Home()
-  }, [search, setSearch])
+  }, [])
 
   return (
     <div className="flex flex-col justify-center mt-5 h-full">
       {role === 'Admin' &&
         <div className="w-full flex justify-center">
-          <Link to="/add-book" className="button my-2 text-base">Add a book</Link>
+          <Link to="/add-food" className="button my-2 text-base">Add food</Link>
         </div>
       }
       <div className="rounded h-full w-5/6 bg-gray-200 m-2 p-2 res-grid gap-2">
-        {!homeBooks ?
+        {!homeFoods ?
           Array.apply(null, Array(10)).map((_, i) => (
             <div key={i} className="bg-white w-full max-w-[250px] h-[200px] rounded animate-pulse" />
           ))
           :
-          homeBooks?.items?.map((book, i) => (
-            <div key={i} className="text-base font-medium bg-white shadow rounded p-2 max-w-[250px] flex flex-col justify-between">
-              <p className="text-cut-3">{book?.name}</p>
-              <div>
-                <p><span className="opacity-70">By:</span> {book?.author}</p>
-                <p><span className="opacity-70">Quantity:</span> {book?.quantity}</p>
-                <p><span className="opacity-70">shelf no:</span> {book?.shelf}</p>
+          homeFoods?.items?.length === 0 ?
+            <>
+              <div className="flex justify-center my-5 py-3">
+                <p>No foods found</p>
               </div>
-              {role === 'Admin' &&
-                <div className="flex gap-1 mt-2">
-                  <Link to={`edit-book/${book?.id}`} className="bg-yellow-500 button">Edit</Link>
-                  <button onClick={() => handleDelete(book?.id)} className="bg-red-500 button">Delete</button>
+            </>
+            :
+            homeFoods?.items?.map((food, i) => (
+              <div key={i} className="text-base font-medium bg-white shadow rounded p-2 max-w-[250px] flex flex-col justify-between">
+                <p className="text-cut-3">{food?.name}</p>
+                <div>
+                  <p className="text-cut-3 mt-2 text-sm">{food?.description}</p>
+                  <div className="flex gap-x-2 items-center">
+                    <s className="opacity-60 text-sm">Birr {food?.price}</s>
+                    <p className="text-green-500">Birr {food?.discount}</p>
+                  </div>
                 </div>
-              }
-            </div>
-          ))}
+                {role === 'Admin' &&
+                  <div className="flex gap-1 mt-2">
+                    <Link to={`edit-food/${food?.id}`} className="bg-yellow-500 button">Edit</Link>
+                    <button onClick={() => handleDelete(food?.id)} className="bg-red-500 button">Delete</button>
+                  </div>
+                }
+              </div>
+            ))}
       </div>
     </div>
   )

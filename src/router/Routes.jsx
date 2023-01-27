@@ -7,9 +7,8 @@ const Home = lazy(() => import('@/Pages/Home/Home'));
 const Login = lazy(() => import('@/Pages/Auth/Login'));
 const Signup = lazy(() => import('@/Pages/Auth/Signup'));
 const Account = lazy(() => import('@/Pages/Account'));
-const AddBooks = lazy(() => import('@/Pages/AddBooks'));
-const EditBook = lazy(() => import('@/Pages/EditBook'));
-
+const AddFood = lazy(() => import('@/Pages/AddFood'));
+const EditFood = lazy(() => import('@/Pages/EditFood'));
 
 
 
@@ -20,8 +19,8 @@ const SystemRoutes = () => {
                 <Route element={<Private />}>
                     <Route path='/' element={<Home />} />
                     <Route path='/account' element={<Account />} />
-                    <Route path='/add-book' element={<AddBooks />} />
-                    <Route path='/edit-book/:id' element={<EditBook />} />
+                    <Route path='/add-food' element={<AddFood />} />
+                    <Route path='/edit-food/:id' element={<EditFood />} />
                 </Route>
                 <Route path='/login' element={<Login />} />
                 <Route path='/signup' element={<Signup />} />
